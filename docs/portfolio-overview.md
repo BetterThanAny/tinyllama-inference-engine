@@ -61,6 +61,10 @@ GitHub Actions runs model-independent checks that can be honest on a hosted CPU 
 - lockfile, Ruff, mypy, and 52 Python contract tests;
 - CPU ASan/UBSan unit and operator tests, 93 explicit checks.
 
+The hosted mypy job omits the multi-gigabyte PyTorch/CUDA model stack and therefore disables only
+`unused-ignore` warnings caused by those absent third-party types. Local verification with the full
+locked environment keeps the repository's strict mypy configuration unchanged.
+
 Full-model CPU tests require pinned local model assets. CUDA correctness, performance, sanitizer,
 and profiler acceptance require the physical 16 GiB RTX 3080 Laptop. The workflow does not register
 a GPU test and skip it; the hardware boundary is explicit.
