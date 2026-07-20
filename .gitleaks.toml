@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Public SHA-256 checksum for the fixed tokenizer golden corpus"
+regexTarget = "line"
+regexes = [
+  '''"tokenizer_sha256"\s*:\s*"[0-9a-f]{64}"''',
+]
