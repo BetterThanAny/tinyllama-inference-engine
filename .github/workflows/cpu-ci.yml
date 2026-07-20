@@ -16,11 +16,11 @@ jobs:
   python-contracts:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
         with:
           version: "0.11.29"
           enable-cache: true
@@ -43,7 +43,7 @@ jobs:
   cpp-sanitizers:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Configure CPU ASan and UBSan build
         run: cmake --preset cpu-debug
       - name: Build CPU targets
