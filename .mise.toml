@@ -1,0 +1,5 @@
+[tools]
+python = "3.12.13"
+
+[env]
+UV_PYTHON_DOWNLOADS = "never"

@@ -1,0 +1,33 @@
+[project]
+name = "tinyllama-inference-engine-tools"
+version = "0.1.0"
+description = "Reproducible model conversion and golden-data tools for TLIE"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "numpy==2.2.6",
+  "protobuf==6.31.1",
+  "safetensors==0.5.3",
+  "sentencepiece==0.2.0",
+  "torch==2.7.1",
+  "transformers==4.53.2",
+]
+
+[dependency-groups]
+dev = [
+  "mypy==1.16.1",
+  "ruff==0.12.3",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+explicit_package_bases = true
+files = ["scripts"]
+ignore_missing_imports = true

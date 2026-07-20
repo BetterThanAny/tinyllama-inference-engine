@@ -1,0 +1,17 @@
+.DS_Store
+.tlie-source-snapshot.json
+.cache/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+build/
+models/*
+!models/.gitkeep
+data/generated/*
+!data/generated/.gitkeep
+benchmarks/results/
+benchmarks/profiles/
+*.profraw
+*.profdata
+__pycache__/

@@ -1,0 +1,112 @@
+{
+  "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+  "tokenizer_sha256": "9e556afd44213b6bd1be2b850ebbbd98f5481437a8021afaf58ee7fb1818d347",
+  "reference": "transformers.AutoTokenizer(use_fast=False, legacy=False)",
+  "cases": [
+    {
+      "text": "",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1
+      ]
+    },
+    {
+      "text": "Hello, TinyLlama!",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1,
+        15043,
+        29892,
+        323,
+        4901,
+        29931,
+        29880,
+        3304,
+        29991
+      ]
+    },
+    {
+      "text": "The capital of France is",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1,
+        450,
+        7483,
+        310,
+        3444,
+        338
+      ]
+    },
+    {
+      "text": "你好，TinyLlama！",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1,
+        29871,
+        30919,
+        31076,
+        30214,
+        29911,
+        4901,
+        29931,
+        29880,
+        3304,
+        30584
+      ]
+    },
+    {
+      "text": "line one\nline two\tend",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1,
+        1196,
+        697,
+        13,
+        1220,
+        1023,
+        12,
+        355
+      ]
+    },
+    {
+      "text": "emoji: 🦙🚀",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1,
+        953,
+        29877,
+        2397,
+        29901,
+        29871,
+        243,
+        162,
+        169,
+        156,
+        243,
+        162,
+        157,
+        131
+      ]
+    },
+    {
+      "text": " leading and trailing ",
+      "add_bos": true,
+      "add_eos": false,
+      "ids": [
+        1,
+        29871,
+        8236,
+        322,
+        25053,
+        29871
+      ]
+    }
+  ]
+}

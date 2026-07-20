@@ -1,0 +1,72 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "cpu-debug",
+      "displayName": "CPU debug with ASan and UBSan",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/cpu-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "TLIE_ENABLE_SANITIZERS": "ON",
+        "TLIE_MODEL_DIR": "${sourceDir}/models/tinyllama-chat-v1.0",
+        "TLIE_GOLDEN_DIR": "${sourceDir}/data/generated/tinyllama-chat-v1.0"
+      }
+    },
+    {
+      "name": "cuda-release",
+      "displayName": "CUDA release for RTX 3080 Laptop (SM 86)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/cuda-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CUDA_ARCHITECTURES": "86",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "TLIE_ENABLE_CUDA": "ON",
+        "TLIE_ENABLE_SANITIZERS": "OFF",
+        "TLIE_MODEL_DIR": "${sourceDir}/models/tinyllama-chat-v1.0",
+        "TLIE_GOLDEN_DIR": "${sourceDir}/data/generated/tinyllama-chat-v1.0"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "cpu-debug",
+      "configurePreset": "cpu-debug",
+      "jobs": 8
+    },
+    {
+      "name": "cuda-release",
+      "configurePreset": "cuda-release",
+      "jobs": 8
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "cpu-debug",
+      "configurePreset": "cpu-debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "cuda-release",
+      "configurePreset": "cuda-release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    }
+  ]
+}
