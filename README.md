@@ -1,5 +1,28 @@
 # TinyLlama inference engine
 
+[![CPU CI](https://github.com/BetterThanAny/tinyllama-inference-engine/actions/workflows/cpu-ci.yml/badge.svg)](https://github.com/BetterThanAny/tinyllama-inference-engine/actions/workflows/cpu-ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
+> A correctness-first, single-GPU TinyLlama 1.1B inference engine built in C++20 and CUDA. Start
+> with the [portfolio overview](docs/portfolio-overview.md) for architecture, verified results, and
+> claim boundaries; use [PLAN.md](PLAN.md) for the full audit trail.
+
+## At a glance
+
+| Capability | Current verified scope |
+|---|---|
+| Numerical paths | CPU FP32 reference, CUDA FP16, hybrid W8A16 weight-only |
+| Runtime | Explicit KV cache, prefill/decode, Batch 4, 20 reclaimable request slots |
+| Service | Loopback OpenAI-compatible subset with JSON/SSE, timeout, and cancellation |
+| GPU verification | RTX 3080 Laptop: 249 kernel checks, clean memcheck and racecheck |
+| Measured result | Batch 4 is `2.905x` Batch 1; INT8 memory `-40.434%`, speed non-finding |
+| Stability | 1800-second, concurrency-20 run; 3076 terminal requests, 0 failed/leaked requests |
+
+The tracked [RTX 3080 evidence summary](benchmarks/evidence/20260720-rtx3080-m5-summary.md) includes
+the fixed workload, thermal qualifications, limitations, and SHA-256 identities of the raw reports.
+GitHub Actions intentionally covers model-independent Python contracts and CPU ASan/UBSan tests;
+CUDA claims require the designated physical GPU and are not represented by a skipped CI job.
+
 This repository contains the verified M1 CUDA-independent reference, M2 FP16 CUDA runtime, M3
 hybrid W8A16 weight-only path, M4 continuous-batching OpenAI-compatible server, and M5 stability and
 cross-engine evidence for the pinned TinyLlama-1.1B-Chat-v1.0 model. CUDA milestone acceptance

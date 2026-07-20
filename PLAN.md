@@ -1,5 +1,8 @@
 # TinyLlama CUDA 推理与服务引擎实施计划
 
+面向招聘者和快速代码审阅，请先阅读 `docs/portfolio-overview.md`；本文件保留完整里程碑、失败尝试、
+命令级验证和风险审计记录。
+
 ## 1. 项目定位
 
 构建一个可验证、可量化、可服务化的小型 LLM 推理引擎。核心模型为 TinyLlama-1.1B，覆盖权重加载、tokenizer、KV Cache、FP16 CUDA 算子、INT8 weight-only、批处理调度、流式生成和 OpenAI-compatible API。
