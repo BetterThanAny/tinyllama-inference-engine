@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "compact_summary",
+  "validated_at_utc": "2026-07-20T02:20:38Z",
+  "scope": "TinyLlama 1.1B single-GPU M5 acceptance",
+  "source": {
+    "file_count": 89,
+    "tree_sha256": "60fea5928169ec3f65962c97dcf47d6dcfe58739aea310d1d29859924b472abc",
+    "git_commit_at_measurement": null,
+    "working_tree_dirty_at_measurement": true,
+    "first_committed_implementation": "f7c9a24b20d75cc11c9feda5354b0e4fb34f0332"
+  },
+  "environment": {
+    "gpu": "NVIDIA GeForce RTX 3080 Laptop GPU",
+    "vram_gib": 16,
+    "compute_capability": "8.6",
+    "driver": "610.47",
+    "cuda_toolkit": "12.0.140",
+    "cuda_runtime": 12000,
+    "power_mode": "AC/Balanced"
+  },
+  "test_inventory": {
+    "python_contracts": {"registered": 52, "passed": 52, "skipped": 0},
+    "mac_cpu_ctest": {"enabled": 6, "disabled": 0, "passed": 6},
+    "wsl_cuda_ctest": {"enabled": 8, "disabled": 0, "passed": 8},
+    "cuda_kernel_checks": 249
+  },
+  "sanitizer": {
+    "compute_sanitizer_version": "2026.2.1.0",
+    "memcheck": {"bytes_leaked": 0, "errors": 0},
+    "racecheck": {"hazards": 0, "errors": 0, "warnings": 0}
+  },
+  "serving_smoke": {
+    "concurrency": 20,
+    "completed": 12,
+    "timed_out": 4,
+    "client_cancelled": 4,
+    "final_queued": 0,
+    "final_active": 0,
+    "final_kv_blocks_used": 0
+  },
+  "batch": {
+    "context": 128,
+    "output_tokens": 32,
+    "warmups": 3,
+    "samples": 10,
+    "batch_1_total_tokens_per_second": 19.263951300056874,
+    "batch_4_total_tokens_per_second": 55.9574426127256,
+    "batch_4_over_batch_1": 2.9047749208419353,
+    "tokens_match": true,
+    "thermal_slowdown_states": ["Not Active"]
+  },
+  "int8": {
+    "format": "hybrid W8A16 per-output-channel",
+    "peak_memory_reduction_fraction": 0.4043355325164939,
+    "throughput_gain_fraction": -0.20111182002170114,
+    "memory_threshold_passed": true,
+    "speed_non_finding": true,
+    "thermal_qualified": true,
+    "batch_4_available": false
+  },
+  "stability": {
+    "requested_seconds": 1800,
+    "observed_seconds": 1830.2890844589856,
+    "concurrency": 20,
+    "submitted": 3076,
+    "completed": 2728,
+    "cancelled_or_timed_out": 348,
+    "failed": 0,
+    "terminal_accounting_balanced": true,
+    "metrics_poll_failures": 0,
+    "settled_memory_growth_mib": -198.5,
+    "memory_growth_limit_mib": 64.0,
+    "final_queued": 0,
+    "final_active": 0,
+    "final_kv_blocks_used": 0,
+    "maximum_temperature_c": 87.0,
+    "thermal_slowdown_observed": true,
+    "performance_baseline": false
+  },
+  "cross_engine": [
+    {"engine": "PyTorch FP16", "total_tokens_per_second": 35.959, "peak_mib": 2120.872},
+    {"engine": "llama.cpp GGUF F16", "total_tokens_per_second": 117.734, "peak_mib": 3841.0},
+    {"engine": "TLIE FP16", "total_tokens_per_second": 19.019, "peak_mib": 2122.0},
+    {
+      "engine": "TLIE hybrid INT8",
+      "total_tokens_per_second": 15.302,
+      "peak_mib": 1264.0,
+      "thermal_qualified": true
+    }
+  ],
+  "artifact_sha256": {
+    "stability.json": "16041fef49615353f4c10b5ce05ff4adaa1a71c7b0af058a4767fb008908c817",
+    "batch.json": "a2fd36705e598d3cc85dff6bd6d8411b35317d003413891d230804d60fd7ffd2",
+    "smoke.json": "23ee28b4d917d90c360a54d39a8534dac29797f3186aa14b5c31b123b39c7821",
+    "comparison-report.json": "a2cacd527263a86ee23b0185dff4cea887ba2fbdd4011efb980d8a57c4c0b3a0",
+    "comparison-summary.csv": "73bad0d616c7097e26db791911334e7d700526a0e174e62aba9da85641850283",
+    "comparison-report.md": "3d8424b9adbc7d65006279c436ffe25975f03f912d47583be42f47db05b4e27c",
+    "memcheck.log": "7887c0a3ec95fd3827f0943cc13606daa649a92ae514c36e3193f0f265d49206",
+    "racecheck.log": "3bc6193cab5255ec204e7d3d04d5a8bea3243cea2239f40865901966be50d3a6"
+  },
+  "limitations": [
+    "Single RTX 3080 Laptop GPU and one server process",
+    "Stability contexts are bounded to 512 tokens",
+    "INT8 reduces memory but is slower than FP16 in this implementation",
+    "INT8 Batch 4 is unavailable",
+    "Thermal slowdown was observed in sustained and INT8 workloads",
+    "Real CUDA OOM and ResetSlot fault injection remain unverified",
+    "Raw model weights, Nsight reports, and large logs are intentionally not committed"
+  ]
+}
