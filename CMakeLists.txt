@@ -72,7 +72,7 @@ if(BUILD_TESTING)
   tlie_add_test(tlie_unit_tests tests/unit_tests.cpp)
   target_compile_definitions(tlie_unit_tests PRIVATE
     TLIE_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
-    TLIE_MODEL_DIR="${TLIE_MODEL_DIR}")
+    TLIE_TEST_FIXTURE_DIR="${CMAKE_SOURCE_DIR}/tests/fixtures")
 
   tlie_add_test(tlie_operator_tests tests/operator_tests.cpp)
   target_compile_definitions(tlie_operator_tests PRIVATE TLIE_SOURCE_DIR="${CMAKE_SOURCE_DIR}")

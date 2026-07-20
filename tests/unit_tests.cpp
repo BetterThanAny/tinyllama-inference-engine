@@ -90,7 +90,7 @@ void TestSha256(Context& context) {
 }
 
 void TestConfig(Context& context, const std::filesystem::path& temporary) {
-  const auto model_config = std::filesystem::path(TLIE_MODEL_DIR) / "config.json";
+  const auto model_config = std::filesystem::path(TLIE_TEST_FIXTURE_DIR) / "config.json";
   const auto loaded = tlie::ModelConfig::Load(model_config);
   TLIE_CHECK(context, loaded.ok());
   if (!loaded.ok()) {

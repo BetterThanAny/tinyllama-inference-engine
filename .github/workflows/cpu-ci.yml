@@ -1,0 +1,70 @@
+name: CPU CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cpu-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.29"
+          enable-cache: true
+      - name: Verify lockfile
+        run: uv lock --check
+      - name: Install the model-independent test toolchain
+        run: |
+          uv venv --python 3.12
+          uv pip install --python .venv/bin/python \
+            numpy==2.2.6 ruff==0.12.3 mypy==1.16.1
+      - name: Format and lint
+        run: |
+          uv run --no-sync ruff format --check scripts tests
+          uv run --no-sync ruff check scripts tests
+      - name: Type check
+        run: uv run --no-sync mypy scripts
+      - name: Python contract tests
+        run: uv run --no-sync python -m unittest discover -s tests -p 'test_*.py' -v
+
+  cpp-sanitizers:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure CPU ASan and UBSan build
+        run: cmake --preset cpu-debug
+      - name: Build CPU targets
+        run: cmake --build --preset cpu-debug
+      - name: Require the model-independent CTest inventory
+        run: |
+          ctest --test-dir build/cpu-debug --show-only=json-v1 > build/cpu-ci-tests.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          document = json.loads(Path("build/cpu-ci-tests.json").read_text())
+          available = {test["name"] for test in document["tests"]}
+          required = {"tlie_unit_tests", "tlie_operator_tests"}
+          missing = required - available
+          if missing:
+              raise SystemExit(f"missing required CPU tests: {sorted(missing)}")
+          print(f"required CPU tests registered: {sorted(required)}")
+          PY
+      - name: Run model-independent ASan and UBSan tests
+        run: >-
+          ctest --test-dir build/cpu-debug
+          -R '^tlie_(unit|operator)_tests$'
+          --output-on-failure --verbose
